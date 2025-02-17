@@ -78,7 +78,7 @@ foreach($line in $fileContent) {
 }
 
 # Define the connection string
-$connectionString = "Data Source=$msservername\$msdatabase;Initial Catalog=$msdatabase;User Id=$msusername;Password=$mspassword;"
+$connectionString = "Server=$msservername;database=$msdatabase;User Id=$msusername;Password=$mspassword;"
 
 $query1 = "truncate table Ami_DevicePropertyValues;"
 $query2 = "truncate table Ami_DistinctPropertyValues;"
