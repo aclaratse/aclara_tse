@@ -114,7 +114,7 @@
         },
         "find_meter_optimum": {
             "type": "powershell",
-            "command": "Select-String -path 'F:\\Program Files` (x86)\\DCSI\\Optimum` Windows` Service\\Logs\\*' -Pattern \"83986937\""
+            "command": "Select-String -path 'F:\\Program Files` (x86)\\DCSI\\Optimum` Windows` Service\\Logs\\*' -Pattern "
         }
     }
 }

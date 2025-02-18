@@ -7,7 +7,7 @@ param(
     )
 
 # Configuration
-$jsonPath = ".\queries.json"
+$jsonPath = "C:\Users\76121\OneDrive - HUBBELL INC\Documents\twacs_ps\queries.json"
 $sqlplusPath = "sqlplus"  # Assumes sqlplus is in PATH, otherwise specify full path
 
 # Oracle connection details
@@ -86,16 +86,32 @@ function Invoke-JsonCommand {
     param(
         [string]$Command
     )
-    
-    try {
-        $scriptBlock = [ScriptBlock]::Create($Command)
-        & $scriptBlock
+    if ($os_cmd -like "find*") {
+        $userInput = Read-Host -prompt "enter a search value:"
+        $command += $userInput    
+        try {
+            $scriptBlock = [ScriptBlock]::Create($Command)
+            & $scriptBlock
+        }
+        catch {
+            Write-Error "Error executing PowerShell command: $_"
+            return $null
+        
+        }
     }
-    catch {
-        Write-Error "Error executing PowerShell command: $_"
-        return $null
+    else {
+        try {
+            $scriptBlock = [ScriptBlock]::Create($Command)
+            & $scriptBlock
+        }
+        catch {
+            Write-Error "Error executing PowerShell command: $_"
+            return $null
+        
+        }
     }
 }
+
 # Function to execute query using sqlplus
 function Invoke-OracleQuery {
     param(
@@ -139,9 +155,9 @@ EXIT;
 }
 
 # Main 
-if (-not (Test-SqlPlus)) {
-    exit 1
-}
+#if (-not (Test-SqlPlus)) {
+#    exit 1
+#}
 
 if (-not (Test-JsonFile $jsonPath)) {
     exit 1
