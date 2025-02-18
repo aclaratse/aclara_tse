@@ -1,9 +1,9 @@
 param(
     [Parameter(Mandatory=$true, ParameterSetName='QuerySet')]
-    [string[]]$QueryName,
+    [string]$QueryName,
     
     [Parameter(Mandatory=$true, ParameterSetName='CommandSet')]
-    [string[]]$os_cmd
+    [string]$os_cmd
     )
 
 # Configuration
@@ -26,7 +26,7 @@ function Test-SqlPlus {
         Write-Error "SQLPlus not found. Please ensure Oracle client is installed and sqlplus is in PATH"
         return $false
     }
-} #>
+} 
 
 # Function to validate JSON file
 function Test-JsonFile {
@@ -61,7 +61,7 @@ function Get-QueryFromJson {
         return $null
     }
     
-    return $queries.$QueryName
+    return $queries.PSObject.Properties.Value.$queryname.command
 }
 
 # Function to get PowerShell command from JSON
@@ -73,12 +73,12 @@ function Get-CommandFromJson {
     
     $commands = Get-Content $JsonPath | ConvertFrom-Json
     
-    if (-not ($commands.PSObject.Properties.Name -contains $CommandName)) {
+    if (-not $commands.PSObject.Properties.Value -contains $CommandName) {
         Write-Error "Command '$CommandName' not found in JSON file"
         return $null
     }
     
-    return $commands.$CommandName
+    return $commands.PSObject.Properties.value.$CommandName.command
 }
 
 # Function to execute PowerShell command
