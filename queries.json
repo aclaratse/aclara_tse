@@ -102,7 +102,7 @@
         },
         "ora_events": {
             "type": "powershell",
-            "command": "Get-WinEvent -LogName Application | Where-Object { $_.ProviderName -like \"*Oracle*\" -or $_.Message -like \"*Oracle*\" } | Format-Table TimeCreated, ProviderName, Id, Message -AutoSize"
+            "command": "Get-WinEvent -LogName Application | Where-Object { $_.ProviderName -like \"*Oracle*\" -or $_.Message -like \"*Oracle*\" -and $_.TimeCreate -ge  (Get-Date).AddDays(-5) } | Format-Table TimeCreated, ProviderName, Id, Message -AutoSize"
         },
         "stop_services": {
             "type": "powershell",
