@@ -7,7 +7,7 @@ param(
     )
 
 # Configuration
-$jsonPath = "C:\Users\76121\OneDrive - HUBBELL INC\Documents\twacs_ps\queries.json"
+$jsonPath = ".\queries.json"
 $sqlplusPath = "sqlplus"  # Assumes sqlplus is in PATH, otherwise specify full path
 
 # Oracle connection details
